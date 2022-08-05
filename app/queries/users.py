@@ -2,6 +2,7 @@ from sqlmodel import Session, select
 
 from app.core.database import engine
 from app.models import User
+from app.modules.github import get_github_commits
 
 
 def get_users_or_create(username: str) -> User:
@@ -13,13 +14,26 @@ def get_users_or_create(username: str) -> User:
         if user is None:
             user = User(
                 username=username,
-                commits=0,
-                current_pokemon_id=None,
+                commits=get_github_commits(username),
+                current_pokemon=None,
                 current_commits=0,
-                pokedex="[]",
+                pokedex="",
             )
 
             session.add(user)
             session.commit()
             session.refresh(user)
+
+    return user
+
+
+def update_user_commits(user: User) -> User:
+    commit_count = get_github_commits(user.username)
+
+    with Session(engine) as session:
+        user.current_commits = commit_count
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+
     return user
