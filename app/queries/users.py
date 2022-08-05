@@ -6,6 +6,8 @@ from app.modules.github import get_github_commits
 
 
 def get_users_or_create(username: str) -> User:
+    commits = get_github_commits(username)
+
     with Session(engine) as session:
         user = session.exec(
             select(User).where(User.username == username)
@@ -14,7 +16,7 @@ def get_users_or_create(username: str) -> User:
         if user is None:
             user = User(
                 username=username,
-                commits=get_github_commits(username),
+                commits=commits,
                 current_pokemon=None,
                 current_commits=0,
                 pokedex="",
