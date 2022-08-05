@@ -8,6 +8,7 @@ authors = ["Soonho Kwon <percy3368@gmail.com>"]
 python = "^3.10"
 fastapi = "^0.79.0"
 uvicorn = "^0.18.2"
+sqlmodel = "^0.0.6"
 
 [tool.poetry.dev-dependencies]
 
