@@ -1,3 +1,5 @@
+import json
+
 from sqlmodel import Session, select
 
 from app.core.database import engine
@@ -19,7 +21,7 @@ def get_users_or_create(username: str) -> User:
                 commits=commits,
                 current_pokemon=None,
                 current_commits=0,
-                pokedex="",
+                pokedex=json.dumps([]),
             )
 
             session.add(user)
