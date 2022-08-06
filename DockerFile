@@ -9,5 +9,5 @@ RUN --mount=type=secret,id=_env,dst=/.env
 RUN pip install poetry==1.1.12
 RUN poetry install
 
-CMD poetry run uvicorn app.main:app --port 8000
-EXPOSE 8000
+EXPOSE 80
+CMD ["poetry", "run", "uvicorn", "app.main:app", "--port", "80"]
