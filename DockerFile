@@ -20,4 +20,4 @@ COPY ./app /code/app
 RUN --mount=type=secret,id=_env,dst=/.env
 
 EXPOSE 80
-ENTRYPOINT ["poetry", "run", "uvicorn", "app.main:app", "--port", "80"]
+ENTRYPOINT ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
